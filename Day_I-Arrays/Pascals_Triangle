@@ -1,0 +1,50 @@
+//https://leetcode.com/problems/pascals-triangle/description/
+
+//Iterative
+class Solution {
+public:
+    vector<vector<int>> generate(int numRows) {
+        vector<vector<int>>ans(numRows);
+        for(int i=0;i<numRows;i++){
+           ans[i].resize(i+1);
+           ans[i][0] = ans[i][i] = 1;
+           for(int j=1;j<i;j++){
+               ans[i][j] = ans[i-1][j-1] + ans[i-1][j];
+           }
+        }
+        return ans;
+    }
+};
+
+//Combinatorics
+class Solution {
+public:
+    int fact(int n, int r)
+    {
+        int maxim = max(r,n-r);
+        long long num = 1;
+        for(int i=maxim+1;i<=n;i++)
+        {
+            num=num*i;
+        }
+        long long denom = 1;
+        for(int i=2;i<=n - maxim;i++)
+        {
+            denom = denom*i;
+        }
+        long long ans=num/denom;
+        return (int)ans;
+    }
+    
+    vector<vector<int>> generate(int numRows) {
+        vector<vector<int>> pascal(numRows);
+        for(int n=0 ;n<numRows ;n++)
+        {
+            for(int r=0; r<=n ;r++)
+            {
+                pascal[n].push_back( fact(n,r));
+            }
+        }
+        return pascal;
+    }
+};
